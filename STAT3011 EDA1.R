@@ -41,17 +41,6 @@ df_numeric %>%
   facet_wrap(~variable,scales = "free")+
   theme_bw()
 
-
-sum_numberoftimeslate <- df$numberoftime3059dayspastduenotworse + 
-  df$numberoftime6089dayspastduenotworse + df$numberoftimes90dayslate
-df$prop_3059 <- df$numberoftime3059dayspastduenotworse/sum_numberoftimeslate
-df$prop_6089 <- df$numberoftime6089dayspastduenotworse/sum_numberoftimeslate
-df$prop_90plus <- df$numberoftimes90dayslate/sum_numberoftimeslate
-# Replace 3 numberoftime columns' all NA values to 0
-df[c('numberoftime3059dayspastduenotworse', 'numberoftime6089dayspastduenotworse', 'numberoftimes90dayslate')] <- 
-  lapply(df[c('numberoftime3059dayspastduenotworse', 'numberoftime6089dayspastduenotworse', 'numberoftimes90dayslate')], 
-         function(x) { replace(x, is.na(x), 0) })
-
 # Create a new column 'category_pastdue' to store the classification
 df$category_pastdue <- apply(df, 1, function(x) {
   # Calculate the total number of past due occurrences
