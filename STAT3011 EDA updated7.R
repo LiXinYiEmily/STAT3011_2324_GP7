@@ -399,7 +399,6 @@ ggcorrplot::ggcorrplot(cor,p.mat = p_mat,lab = TRUE)
 #' Now we start to see the relation between response and predictors.
 #........
 
-
 # for numberrealestateloansorlines
 summary(training_data$numberrealestateloansorlines)
 count_by_value <- table(training_data$numberrealestateloansorlines)
@@ -407,6 +406,8 @@ nrl_quantile_groups <- cut(training_data$numberrealestateloansorlines,
                        breaks = c(0, 1, 2, 3,54),
                        include.lowest = TRUE)
 count_by_group_change <- table(quantile_groups)
+df$numberrealestateloansorlines <- nrl_quantile_groups
+
 
 # for debtratio
 summary(training_data$debtratio)
@@ -414,6 +415,16 @@ dr_quantile_groups <- cut(training_data$debtratio,
                        breaks = c(0,0.2, 0.4, 0.9,329664),
                        include.lowest = TRUE)
 count_by_group_change <- table(dr_quantile_groups)
+df$numberofopencreditlinesandloans <- dr_quantile_groups
+
+
+## for numberofopencreditlinesandloans
+summary(training_data$numberofopencreditlinesandloans)
+cll_quantile_groups <- cut(training_data$numberofopencreditlinesandloans, 
+                          breaks = c(0,5, 8, 11, 58),
+                          include.lowest = TRUE)
+count_by_group_change <- table(cll_quantile_groups)
+df$numberofopencreditlinesandloans <- cll_quantile_groups
 
 
 
