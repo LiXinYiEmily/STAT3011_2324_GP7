@@ -10,7 +10,121 @@ library(patchwork)
 df <- read_csv("cs-training.csv")
 glimpse(df)
 #Computes the statistics of all numerical variables 
-describe(df)
+#describe(df)
+#In SQL
+library(RSQL) #Generate and Process 'SQL' Queries in R
+library(RSQLite)
+con <- dbConnect(drv = RSQLite::SQLite(),
+                 dbname = ":memory:")
+dbListTables(con)
+
+training_data = read.csv("cs-training.csv")
+#Drop the column (Unnamed: 0)
+training_data <- training_data[,-1]
+
+#Clean the column names
+colnames(training_data) <- gsub("[-,.]", "", tolower(colnames(training_data)))
+head(training_data)
+
+describe =  DBI::dbGetQuery(conn = con,
+                       statement = "
+                SELECT 
+                FROM training_data         
+                ")
+#Load the table
+dbWriteTable(conn = con, 
+             name = "training_data",
+            value = training_data)
+describe  =  DBI::dbGetQuery(conn = con,
+                       statement = "
+                SELECT 'revolvingutilizationofunsecuredlines' AS variable,
+                       COUNT(revolvingutilizationofunsecuredlines) AS count,
+                       AVG(revolvingutilizationofunsecuredlines) AS mean,
+                       STDEV(revolvingutilizationofunsecuredlines) AS std,
+                       MIN(revolvingutilizationofunsecuredlines) AS min,
+                       MAX(revolvingutilizationofunsecuredlines) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'age' AS variable,
+                       COUNT(age) AS count,
+                       AVG(age) AS mean,
+                       STDEV(age) AS std,
+                       MIN(age) AS min,
+                       MAX(age) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'numberoftime3059dayspastduenotworse' AS variable,
+                       COUNT(numberoftime3059dayspastduenotworse) AS count,
+                       AVG(numberoftime3059dayspastduenotworse) AS mean,
+                       STDEV(numberoftime3059dayspastduenotworse) AS std,
+                       MIN(numberoftime3059dayspastduenotworse) AS min,
+                       MAX(numberoftime3059dayspastduenotworse) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'debtratio' AS variable,
+                       COUNT(debtratio) AS count,
+                       AVG(debtratio) AS mean,
+                       STDEV(debtratio) AS std,
+                       MIN(debtratio) AS min,
+                       MAX(debtratio) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'monthlyincome' AS variable,
+                       COUNT(monthlyincome) AS count,
+                       AVG(monthlyincome) AS mean,
+                       STDEV(monthlyincome) AS std,
+                       MIN(monthlyincome) AS min,
+                       MAX(monthlyincome) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'numberofopencreditlinesandloans' AS variable,
+                       COUNT(numberofopencreditlinesandloans) AS count,
+                       AVG(numberofopencreditlinesandloans) AS mean,
+                       STDEV(numberofopencreditlinesandloans) AS std,
+                       MIN(numberofopencreditlinesandloans) AS min,
+                       MAX(numberofopencreditlinesandloans) AS max
+                FROM training_data
+                UNION ALL 
+                SELECT 'numberoftimes90dayslate' AS variable,
+                       COUNT(numberoftimes90dayslate) AS count,
+                       AVG(numberoftimes90dayslate) AS mean,
+                       STDEV(numberoftimes90dayslate) AS std,
+                       MIN(numberoftimes90dayslate) AS min,
+                       MAX(numberoftimes90dayslate) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'numberrealestateloansorlines' AS variable,
+                       COUNT(numberrealestateloansorlines) AS count,
+                       AVG(numberrealestateloansorlines) AS mean,
+                       STDEV(numberrealestateloansorlines) AS std,
+                       MIN(numberrealestateloansorlines) AS min,
+                       MAX(numberrealestateloansorlines) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'numberoftime6089dayspastduenotworse' AS variable,
+                       COUNT(numberoftime6089dayspastduenotworse) AS count,
+                       AVG(numberoftime6089dayspastduenotworse) AS mean,
+                       STDEV(numberoftime6089dayspastduenotworse) AS std,
+                       MIN(numberoftime6089dayspastduenotworse) AS min,
+                       MAX(numberoftime6089dayspastduenotworse) AS max
+                FROM training_data
+                UNION ALL
+                SELECT 'numberofdependents' AS variable,
+                       COUNT(numberofdependents) AS count,
+                       AVG(numberofdependents) AS mean,
+                       STDEV(numberofdependents) AS std,
+                       MIN(numberofdependents) AS min,
+                       MAX(numberofdependents) AS max
+                FROM training_data
+                ")
+describe=t(describe)
+#calculate percentiles
+percentiles <- apply(training_data, 2, quantile, probs = c(0.25, 0.50, 0.75), na.rm = TRUE)
+percentiles = percentiles[,2:11]
+describe=rbind(describe,percentiles)
+
+#descriptive analysis
+describe  
 
 #Drop the column (Unnamed: 0)
 df <- df[,-1]
