@@ -117,14 +117,15 @@ describe  =  DBI::dbGetQuery(conn = con,
                        MAX(numberofdependents) AS max
                 FROM training_data
                 ")
-describe=t(describe)
+describe=as.matrix(t(describe))
 #calculate percentiles
 percentiles <- apply(training_data, 2, quantile, probs = c(0.25, 0.50, 0.75), na.rm = TRUE)
 percentiles = percentiles[,2:11]
-describe=rbind(describe,percentiles)
-
+a=t(percentiles)
+describe=cbind(a,describe)
 #descriptive analysis
-describe  
+describe
+ 
 
 #Drop the column (Unnamed: 0)
 df <- df[,-1]
