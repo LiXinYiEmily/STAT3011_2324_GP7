@@ -580,3 +580,71 @@ plot(cv)
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
 
+
+### By using random forest
+set.seed(4011)
+library(caret)
+library(ranger)
+library(tidyverse)
+library(e1071)
+library(recipes)
+library(workflows)
+library(rsample)
+library(tidymodels)
+library(pROC)
+library(dplyr)
+# Specify the formula and data for modeling
+ranger_recipe <- 
+  recipe(seriousdlqin2yrs~., data = train) 
+
+# Specify a random forest model for modeling
+ranger_spec <- 
+  rand_forest(mtry = tune(), trees = tune(), min_n = tune()) %>% 
+  set_mode("classification") %>% 
+  set_engine("ranger") 
+
+# Create a workflow that combines recipe with the modeling
+ranger_workflow <-
+  workflow() %>% 
+  add_recipe(ranger_recipe) %>% 
+  add_model(ranger_spec) 
+
+# Define data partitioning for evalution
+ranger_rsample <- vfold_cv(train,v=10)
+
+# Perform tuning
+ranger_tune <-
+  tune_grid(ranger_workflow, resamples = ranger_rsample, 
+            grid = 50, control=control_grid(verbose=TRUE))
+
+ranger_best<-select_best(ranger_tune,metric="roc_auc")
+ranger_best
+
+last_ranger_spec <- 
+  rand_forest(mtry=ranger_best$mtry,
+              min_n =ranger_best$min_n,
+              trees = ranger_best$trees) %>% 
+  set_mode("classification") %>% 
+  set_engine("ranger") 
+
+last_ranger_workflow <- 
+  ranger_workflow %>% 
+  update_model(last_ranger_spec)
+
+# Fit
+last_fit <- last_ranger_workflow %>% 
+  fit(train)
+
+# variable importance
+train.X.rf<-train[,-which(names(train)=="class")]
+train.Y.rf<-as.numeric(train$class)
+library(DALEXtra)
+explainer_rf <- explain_tidymodels(
+  model=last_fit,
+  data=train.X.rf,
+  y=train.Y.rf,
+  label="rf",
+  type = "classification"
+)
+vip_rf_auc <- model_parts(explainer_rf,loss_function = loss_one_minus_auc) #metric is 1-auc
+plot(vip_rf_auc)
