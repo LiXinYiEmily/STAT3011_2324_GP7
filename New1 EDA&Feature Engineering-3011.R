@@ -538,7 +538,15 @@ plot(cv)
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
 
-###
+
+#' # Process categorical variables
+df$age_group <- as.factor(
+  ifelse(df$age_group == "20-30", 1,
+         ifelse(df$age_group == "31-40", 2,
+                ifelse(df$age_group == "41-50", 3,
+                       ifelse(df$age_group == "51-60", 4, 5)))))
+table(df$age_group)
+
 df$categoryofdependents <- as.factor(
   ifelse(df$categoryofdependents == "0", 0, 
          ifelse(df$categoryofdependents == "1", 1,
