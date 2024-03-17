@@ -121,8 +121,6 @@ describe
 
 #Read the CSV file
 df <- read_csv("cs-training.csv")
-#Drop the column (Unnamed: 0)
-df <- df[,-1]
 
 #Clean the column names
 colnames(df) <- gsub("-", "", tolower(colnames(df)))
