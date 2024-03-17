@@ -553,6 +553,17 @@ library(foreach)
 library(pROC)
 library(coefplot)
 #registerDoParallel(8)
+
+#dummy variables
+#category_pastdue dummy variable
+library(caret)
+train <- df %>% 
+  mutate(across(where(is.integer),~as.factor(.x)))
+dmy.pastdue<-data.frame(predict(dummyVars(~category_pastdue,train, fullRank=F), train))
+dmy.pastdue <- dmy.pastdue %>% 
+  mutate(across(where(is.double),~as.factor(.x)))
+train<-cbind(df[,-which(names(train)=="category_pastdue")], dmy.pastdue)
+
 set.seed(666)
 alpha<-seq(0.1,0.9,0.05)
 train.X<-as.matrix(train[,2:ncol(train)])
