@@ -546,14 +546,7 @@ for (i in 1:nrow(train)) {
 }
 
 
-#use df directly without using dummy variables
-library(glmnet)
-library(doParallel)
-library(foreach)
-library(pROC)
-library(coefplot)
-#registerDoParallel(8)
-
+#' # Feature importance 
 #dummy variables
 #category_pastdue dummy variable
 library(caret)
@@ -564,6 +557,13 @@ dmy.pastdue <- dmy.pastdue %>%
   mutate(across(where(is.double),~as.factor(.x)))
 train<-cbind(df[,-which(names(train)=="category_pastdue")], dmy.pastdue)
 
+#use df directly without using dummy variables
+library(glmnet)
+library(doParallel)
+library(foreach)
+library(pROC)
+library(coefplot)
+#registerDoParallel(8)
 set.seed(666)
 alpha<-seq(0.1,0.9,0.05)
 train.X<-as.matrix(train[,2:ncol(train)])
