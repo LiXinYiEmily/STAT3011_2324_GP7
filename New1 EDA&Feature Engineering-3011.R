@@ -490,8 +490,55 @@ graph <- df %>% select(where(~ is.character(.) || is.factor(.))) %>%
 wrap_plots(graph$graph,ncol = 2)
 
 
+##Feature importance 
+#dummy variables
+#category_pastdue dummy variable
+library(caret)
+train <- df %>% 
+  mutate(across(where(is.integer),~as.factor(.x)))
+dmy.pur<-data.frame(predict(dummyVars(~category_pastdue,train, fullRank=F), train))
+dmy.pur <- dmy.pur %>% 
+  mutate(across(where(is.double),~as.factor(.x)))
+train<-cbind(df[,-which(names(train)=="category_pastdue")], dmy.pur)
+
+#age_group dummy variable
+train <- train %>% 
+  mutate(across(where(is.integer),~as.factor(.x)))
+dmy.pur<-data.frame(predict(dummyVars(~age_group,train, fullRank=F), train))
+dmy.pur <- dmy.pur %>% 
+  mutate(across(where(is.double),~as.factor(.x)))
+train<-cbind(train[,-which(names(train)=="age_group")], dmy.pur)
+
+#categoryofdependents adjust
+for (i in 1:nrow(train)) {
+  if (train$categoryofdependents[i]=="3+") {
+    train$categoryofdependents[i] <- 3
+  }
+}
 
 
+#use df directly without using dummy variables
+library(glmnet)
+library(doParallel)
+library(foreach)
+library(pROC)
+library(coefplot)
+#registerDoParallel(8)
+set.seed(666)
+alpha<-seq(0.1,0.9,0.05)
+train.X<-as.matrix(train[,2:ncol(train)])
+train.Y<-train[,1]
+search<-foreach(i=alpha, .combine=rbind) %dopar% {
+  cv<-cv.glmnet(train.X, train.Y, family="binomial", nfold=10, type.measure="auc", paralle=TRUE, alpha=i)
+  data.frame(cvm = cv$cvm[cv$lambda == cv$lambda.1se], lambda.1se = cv$lambda.1se, alpha = i)
+}
+best<-search[search$cvm==min(search$cvm),]
+best
+cv<-cv.glmnet(train.X, train.Y, family="binomial", nfold=10, type.measure="auc", paralle=TRUE, alpha=best$alpha)
+plot(cv)
+# modelling with best parameters
+elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
+coef(elnet)
 
 
 
