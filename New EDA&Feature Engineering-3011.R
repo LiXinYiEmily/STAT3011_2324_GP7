@@ -121,7 +121,7 @@ describe
 
 #' # EDA & Feature Engineering
 #Read the CSV file
-df <- read_csv("cs-training.csv")
+df <- read.csv("cs-training.csv")
 #Drop the column (Unnamed: 0)
 df <- df[,-1]
 
