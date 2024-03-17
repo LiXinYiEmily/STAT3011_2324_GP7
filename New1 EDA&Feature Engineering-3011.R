@@ -540,6 +540,12 @@ plot(cv)
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
 
-
+###
+df$categoryofdependents <- as.factor(
+  ifelse(df$categoryofdependents == "0", 0, 
+         ifelse(df$categoryofdependents == "1", 1,
+                ifelse(df$categoryofdependents == "2", 2, 3)))
+)
+table(df$categoryofdependents)
 
 
