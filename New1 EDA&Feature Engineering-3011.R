@@ -410,21 +410,6 @@ df_numeric %>%
   facet_wrap(~variable, scales = "free") +
   theme_bw()
 
-#Process debtratio again using mad method since still many outliers
-debtratio_outlier <- mad_based_outlier(df$debtratio)
-df <- df[!debtratio_outlier, ]
-
-#Check boxplot again again
-df_numeric <- df %>% 
-  ##select all numeric column
-  select(where(is.numeric))
-df_numeric %>%
-  pivot_longer(everything(), names_to = "variable", values_to = "value") %>%
-  ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  facet_wrap(~variable, scales = "free") +
-  theme_bw()
-
 #' Plot numeric variables
 df_numeric <- df %>% 
   ##select all numeric column
