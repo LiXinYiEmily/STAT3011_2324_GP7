@@ -519,33 +519,6 @@ df$nrl_quantile_groups <- as.factor(
 )
 table(df$nrl_quantile_groups)
 
-##Feature importance 
-#dummy variables
-#category_pastdue dummy variable
-library(caret)
-train <- df %>% 
-  mutate(across(where(is.integer),~as.factor(.x)))
-dmy.pur<-data.frame(predict(dummyVars(~category_pastdue,train, fullRank=F), train))
-dmy.pur <- dmy.pur %>% 
-  mutate(across(where(is.double),~as.factor(.x)))
-train<-cbind(df[,-which(names(train)=="category_pastdue")], dmy.pur)
-
-#age_group dummy variable
-train <- train %>% 
-  mutate(across(where(is.integer),~as.factor(.x)))
-dmy.pur<-data.frame(predict(dummyVars(~age_group,train, fullRank=F), train))
-dmy.pur <- dmy.pur %>% 
-  mutate(across(where(is.double),~as.factor(.x)))
-train<-cbind(train[,-which(names(train)=="age_group")], dmy.pur)
-
-#categoryofdependents adjust
-for (i in 1:nrow(train)) {
-  if (train$categoryofdependents[i]=="3+") {
-    train$categoryofdependents[i] <- 3
-  }
-}
-
-
 #' # Feature importance 
 #dummy variables
 #category_pastdue dummy variable
