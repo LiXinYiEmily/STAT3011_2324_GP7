@@ -579,10 +579,23 @@ plot(cv)
 # modelling with best parameters
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
+# variable importance
+train.X<-train[,-which(names(train)=="seriousdlqin2yrs")]
+train.Y<-as.numeric(train$seriousdlqin2yrs)
+library(DALEXtra)
+explainer_elnet <- explain_tidymodels(
+  model=elnet,
+  data=train.X,
+  y=train.Y-1,
+  label="Elastic Net",
+  type = "classification"
+)
+vip_elnet_auc <- model_parts(explainer_elnet,loss_function = loss_one_minus_auc) #metric is 1-auc
+plot(vip_elnet_auc)
 
 
 ### By using random forest
-set.seed(4011)
+set.seed(3011)
 library(caret)
 library(ranger)
 library(tidyverse)
@@ -636,8 +649,8 @@ last_fit <- last_ranger_workflow %>%
   fit(train)
 
 # variable importance
-train.X.rf<-train[,-which(names(train)=="class")]
-train.Y.rf<-as.numeric(train$class)
+train.X.rf<-train[,-which(names(train)=="seriousdlqin2yrs")]
+train.Y.rf<-as.numeric(train$seriousdlqin2yrs)
 library(DALEXtra)
 explainer_rf <- explain_tidymodels(
   model=last_fit,
