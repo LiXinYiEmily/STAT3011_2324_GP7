@@ -548,4 +548,10 @@ df$categoryofdependents <- as.factor(
 )
 table(df$categoryofdependents)
 
+df$cll_quantile_groups <- as.factor(
+  ifelse(df$cll_quantile_groups == "0", 0, 
+         ifelse(df$cll_quantile_groups == "5", 5,
+                ifelse(df$cll_quantile_groups == "8", 8, 11)))
+)
+table(df$cll_quantile_groups)
 
