@@ -488,6 +488,35 @@ graph <- df %>% select(where(~ is.character(.) || is.factor(.))) %>%
 wrap_plots(graph$graph,ncol = 2)
 
 
+#' # Process categorical variables
+df$age_group <- as.factor(
+  ifelse(df$age_group == "20-30", 1,
+         ifelse(df$age_group == "31-40", 2,
+                ifelse(df$age_group == "41-50", 3,
+                       ifelse(df$age_group == "51-60", 4, 5)))))
+table(df$age_group)
+
+df$categoryofdependents <- as.factor(
+  ifelse(df$categoryofdependents == "0", 0, 
+         ifelse(df$categoryofdependents == "1", 1,
+                ifelse(df$categoryofdependents == "2", 2, 3)))
+)
+table(df$categoryofdependents)
+
+df$cll_quantile_groups <- as.factor(
+  ifelse(df$cll_quantile_groups == "0", 0, 
+         ifelse(df$cll_quantile_groups == "5", 5,
+                ifelse(df$cll_quantile_groups == "8", 8, 11)))
+)
+table(df$cll_quantile_groups)
+
+df$nrl_quantile_groups <- as.factor(
+  ifelse(df$nrl_quantile_groups == "0", 0, 
+         ifelse(df$nrl_quantile_groups == "1", 1,
+                ifelse(df$nrl_quantile_groups == "2", 2, 3)))
+)
+table(df$nrl_quantile_groups)
+
 ##Feature importance 
 #dummy variables
 #category_pastdue dummy variable
@@ -537,27 +566,4 @@ plot(cv)
 # modelling with best parameters
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
-
-
-#' # Process categorical variables
-df$age_group <- as.factor(
-  ifelse(df$age_group == "20-30", 1,
-         ifelse(df$age_group == "31-40", 2,
-                ifelse(df$age_group == "41-50", 3,
-                       ifelse(df$age_group == "51-60", 4, 5)))))
-table(df$age_group)
-
-df$categoryofdependents <- as.factor(
-  ifelse(df$categoryofdependents == "0", 0, 
-         ifelse(df$categoryofdependents == "1", 1,
-                ifelse(df$categoryofdependents == "2", 2, 3)))
-)
-table(df$categoryofdependents)
-
-df$cll_quantile_groups <- as.factor(
-  ifelse(df$cll_quantile_groups == "0", 0, 
-         ifelse(df$cll_quantile_groups == "5", 5,
-                ifelse(df$cll_quantile_groups == "8", 8, 11)))
-)
-table(df$cll_quantile_groups)
 
