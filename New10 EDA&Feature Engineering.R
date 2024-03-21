@@ -378,31 +378,7 @@ ggcorrplot::ggcorrplot(cor,p.mat = p_mat,lab = TRUE)
 
 
 #' decision tree
-#Calculate the total number of past due occurrences and proportion of each of tree pastduedate variables
-total_past_due <- df$numberoftime3059dayspastduenotworse + df$numberoftime6089dayspastduenotworse + df$numberoftimes90dayslate
-df$prop3059 <- ifelse(is.na(df$numberoftime3059dayspastduenotworse/total_past_due),0,df$numberoftime3059dayspastduenotworse / total_past_due)
-df$prop6089 <- ifelse(is.na(df$numberoftime6089dayspastduenotworse / total_past_due), 0, df$numberoftime6089dayspastduenotworse/total_past_due)
-df$prop90 <- ifelse(is.na(df$numberoftimes90dayslate / total_past_due), 0, df$numberoftimes90dayslate/total_past_due)
-library(lattice)
-library(caret)
-# Set the seed for reproducibility
-set.seed(123)
-# Proportion of data to be allocated for testing (i.e.,80% training, 20% testing)
-test_prop <- 0.2
-# Create an index vector for splitting
-train_index <- createDataPartition(df$seriousdlqin2yrs, p = test_prop, list = FALSE)
-# Split the data into training and testing sets
-train_df <- df[train_index, ]
-test_df <- df[-train_index, ]
-install.packages("rpart")
-library(rpart)
-# Set target variable and predictor variables
-model <- rpart(seriousdlqin2yrs ~ prop3059+prop6089+prop90 , data = train_df)
-# Set testing data 
-predictions <- predict(model, newdata = test_df)
-plot(model)
-text(model)
-
+#Calculate the total number of past due occurrences and proportion of each of tree pastduedate variable
 
 #' # Feature Engineering
 #' # Process variables
