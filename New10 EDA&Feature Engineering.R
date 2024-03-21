@@ -436,6 +436,7 @@ df$label <- ifelse(df$prop_3059 == 0 & df$prop_6089 == 0 & df$prop_90plus == 0, 
 
 # plot random forest
 model <- rpart(label ~ prop_3059 + prop_6089 + prop_90plus, data = df)
+par(mar = c(1, 1, 1, 1))
 rpart.plot(model)
 
 
