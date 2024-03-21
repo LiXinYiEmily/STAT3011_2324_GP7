@@ -125,8 +125,7 @@ describe  =  DBI::dbGetQuery(conn = con,
 #calculate percentiles
 percentiles <- apply(training_data, 2, quantile, probs = c(0.25, 0.50, 0.75), na.rm = TRUE)
 percentiles = percentiles[,2:11]
-a=t(percentiles)
-describe=cbind(a,describe[,2:6])
+describe=rbind(t(describe[,2:6]),percentiles)
 #descriptive analysis
 describe
 
