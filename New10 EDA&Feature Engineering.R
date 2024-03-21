@@ -121,7 +121,7 @@ describe  =  DBI::dbGetQuery(conn = con,
                        MAX(numberofdependents) AS max
                 FROM training_data
                 ")
-describe=as.matrix(describe)
+#describe=as.matrix(describe)
 #calculate percentiles
 percentiles <- apply(training_data, 2, quantile, probs = c(0.25, 0.50, 0.75), na.rm = TRUE)
 percentiles = percentiles[,2:11]
