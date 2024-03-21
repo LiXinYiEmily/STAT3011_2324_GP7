@@ -491,7 +491,7 @@ df$category_pastdue <- apply(df[, c('numberoftime3059dayspastduenotworse',
                                         if (prop_3059 >= 0.3484848) {
                                           return('1')
                                         } else {
-                                          return('1')
+                                          return('2')
                                         }
                                       }
                                     })
