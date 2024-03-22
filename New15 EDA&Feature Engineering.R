@@ -433,7 +433,7 @@ df$prop_90plus <- apply(df[, c('numberoftime3059dayspastduenotworse',
 
 # assign new label
 df$label <- ifelse(df$prop_3059 == 0 & df$prop_6089 == 0 & df$prop_90plus == 0, 0,
-                   ifelse(df$prop_3059 > df$prop_6089 | df$prop_3059 > df$prop_90plus, 1, 2))
+                   ifelse(df$prop_3059 > df$prop_6089 & df$prop_3059 > df$prop_90plus, 1, 2))
 
 # plot random forest
 model <- rpart(label ~ prop_3059 + prop_6089 + prop_90plus, data = df)
@@ -455,8 +455,8 @@ df$category_pastdue <- apply(df[, c('numberoftime3059dayspastduenotworse',
                                                           x['numberoftime6089dayspastduenotworse'] / total_past_due)
                                       prop_90plus <- ifelse(is.na(x['numberoftimes90dayslate'] / total_past_due), 0, 
                                                             x['numberoftimes90dayslate'] / total_past_due)
-                                      if (prop_3059 < 0.02777778) {
-                                        if (prop_90plus < 0.07142857) {
+                                      if (prop_3059 < 0.028) {
+                                        if (prop_90plus < 0.071) {
                                           if (prop_6089 < 0.5) {
                                             return('0')
                                           } else {
@@ -466,7 +466,7 @@ df$category_pastdue <- apply(df[, c('numberoftime3059dayspastduenotworse',
                                           return('2')
                                         }
                                       } else {
-                                        if (prop_3059 >= 0.3484848) {
+                                        if (prop_3059 >= 0.52) {
                                           return('1')
                                         } else {
                                           return('2')
