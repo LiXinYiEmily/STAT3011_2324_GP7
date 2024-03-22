@@ -551,7 +551,7 @@ df <- subset(df, select = -c(debtratio, monthlyincome, revolvingutilizationofuns
 #Check boxplot again
 df_numeric <- df %>% 
   ##select all numeric column
-  select(c(debtratio, monthlyincome, revolvingutilizationofunsecuredlines))
+  select(c(sqrt_debtratio, sqrt_monthlyincome, sqrt_revolvingutilizationofunsecuredlines))
 df_numeric %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value") %>%
   ggplot(aes(x=variable, y=value)) +
