@@ -175,11 +175,12 @@ df_numeric <- df %>%
   select(where(is.numeric))
 
 df_numeric %>% 
-  pivot_longer(everything(),names_to = "variable",values_to = "value") %>% 
-  ggplot(aes(x=value))+
-  geom_histogram()+
-  facet_wrap(~variable,scales = "free")+
-  theme_bw()
+  pivot_longer(everything(), names_to = "variable", values_to = "value") %>% 
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30) +  
+  facet_wrap(~variable, scales = "free", ncol = 5) +  
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  
 #Many variables are very unevenly distributed
 
 #' # MISSING VALUES 
@@ -247,7 +248,7 @@ df_numeric %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value") %>%
   ggplot(aes(x=variable, y=value)) +
   geom_boxplot() +
-  facet_wrap(~variable, scales = "free") +
+  facet_wrap(~variable, scales = "free", ncol = 5) +
   theme_bw()
 
 # Detect Outlier Methods: 1.Percentile 2.Median Absolute Deviation (MAD) 3.Standard deviation

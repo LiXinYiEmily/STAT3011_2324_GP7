@@ -28,10 +28,6 @@ library(dlookr)
 ## 
 ## Attaching package: 'dlookr'
 ## 
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-## 
 ## The following object is masked from 'package:base':
 ## 
 ##     transform
@@ -39,6 +35,22 @@ library(dlookr)
 
 ```r
 library(tidyverse)
+```
+
+```
+## ── Attaching core tidyverse packages ────────────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.3     ✔ purrr     1.0.2
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ tidyr::extract() masks dlookr::extract()
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ dplyr::lag()     masks stats::lag()
+## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+```r
 library(conflicted)
 conflicts_prefer("tidyr"::extract, "tidyr"::extract)
 ```
@@ -347,15 +359,12 @@ df_numeric <- df %>%
   select(where(is.numeric))
 
 df_numeric %>% 
-  pivot_longer(everything(),names_to = "variable",values_to = "value") %>% 
-  ggplot(aes(x=value))+
-  geom_histogram()+
-  facet_wrap(~variable,scales = "free")+
-  theme_bw()
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+  pivot_longer(everything(), names_to = "variable", values_to = "value") %>% 
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30) +  
+  facet_wrap(~variable, scales = "free", ncol = 5) +  
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  
 ```
 
 ```
@@ -507,7 +516,7 @@ df_numeric %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value") %>%
   ggplot(aes(x=variable, y=value)) +
   geom_boxplot() +
-  facet_wrap(~variable, scales = "free") +
+  facet_wrap(~variable, scales = "free", ncol = 5) +
   theme_bw()
 ```
 
