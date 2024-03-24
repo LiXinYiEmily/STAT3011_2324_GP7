@@ -102,7 +102,7 @@ vip_elnet_auc <- model_parts(explainer_elnet,loss_function = loss_one_minus_auc)
 plot(vip_elnet_auc)
 ```
 
-![plot of chunk unnamed-chunk-1](figure-Feature Engineering(part 2)/unnamed-chunk-1-1.png)
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
 # By using random forest
 
@@ -218,5 +218,5 @@ vip_rf_auc <- model_parts(explainer_rf,loss_function = loss_one_minus_auc) #metr
 plot(vip_rf_auc)
 ```
 
-![plot of chunk unnamed-chunk-2](figure-Feature Engineering(part 2)/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
