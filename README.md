@@ -1,4 +1,5 @@
 Problem Statement
+
 It is crucial for banks and money lenders to understand the customers’ risk and financial behaviours. A high prediction accuracy of loan default, that is, borrowers fail to make payments, helps businesses to make more responsible lending and pricing strategies and improve revenue by keeping losses low. 
 
 In this project, we develop predictive models based on a number of features, including monthly income, debt ratio and so on, to access the payment behaviours and creditworthiness of borrowers and identify those who is likely to default.
