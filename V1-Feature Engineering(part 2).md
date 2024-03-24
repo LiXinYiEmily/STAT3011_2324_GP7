@@ -1,6 +1,9 @@
-#' # Feature Engineering (part 2)
-#' # Feature importance 
-#' # Elastic Net 
+# Feature Engineering (part 2)
+# Feature importance 
+# Elastic Net 
+
+
+```r
 library(caret)
 library(doParallel)
 library(foreach)
@@ -31,11 +34,41 @@ stopCluster(cl)
 # best parameters
 best<-search[search$cvm==min(search$cvm),]
 best
+```
 
+```
+##         cvm lambda.1se alpha
+## 2 0.8484222   0.014722  0.15
+```
+
+```r
 # modelling with best parameters
 elnet<-glmnet(train.X, train.Y, family="binomial", lambda = best$lambda.1se, alpha = best$alpha)
 coef(elnet)
+```
 
+```
+## 16 x 1 sparse Matrix of class "dgCMatrix"
+##                                                      s0
+## (Intercept)                               -3.8850050447
+## age                                       -0.0064899010
+## numberofopencreditlinesandloans            0.0079966567
+## numberrealestateloansorlines               0.0449150561
+## numberofdependents                         0.0138204854
+## age_group                                 -0.0619129317
+## prop_3059                                  0.8860853416
+## prop_6089                                  1.2995704384
+## prop_90plus                                1.6261524849
+## category_pastdue                           0.3982434741
+## dependents_groups                          0.0091084612
+## rsll_groups                                .           
+## ocll_quantile_groups                       .           
+## sqrt_debtratio                             0.0600517539
+## sqrt_monthlyincome                        -0.0004725869
+## sqrt_revolvingutilizationofunsecuredlines  1.7421151233
+```
+
+```r
 # variable importance
 train.X<-train[,-which(names(train)=="seriousdlqin2yrs")]
 train.Y<-as.numeric(train$seriousdlqin2yrs)-1
@@ -47,11 +80,34 @@ explainer_elnet <- explain_tidymodels(
   label="Elastic Net",
   type = "classification"
 )
+```
+
+```
+## Preparation of a new explainer is initiated
+##   -> model label       :  Elastic Net 
+##   -> data              :  149999  rows  15  cols 
+##   -> target variable   :  149999  values 
+##   -> predict function  :  yhat.glmnet  will be used (  default  )
+##   -> predicted values  :  No value for predict function target column. (  default  )
+##   -> model_info        :  package glmnet , ver. 4.1.8 , task classification (  default  ) 
+##   -> model_info        :  type set to  classification 
+##   -> predicted values  :  numerical, min =  0.007726903 , mean =  0.06684045 , max =  0.6167332  
+##   -> residual function :  difference between y and yhat (  default  )
+##   -> residuals         :  numerical, min =  -0.6167332 , mean =  -3.062151e-10 , max =  0.9914846  
+##   A new explainer has been created!
+```
+
+```r
 vip_elnet_auc <- model_parts(explainer_elnet,loss_function = loss_one_minus_auc) #metric is 1-auc
 plot(vip_elnet_auc)
+```
+
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+
+# By using random forest
 
 
-#' # By using random forest
+```r
 set.seed(3011)
 library(caret)
 library(ranger)
@@ -94,12 +150,28 @@ registerDoParallel(cl)
 ranger_tune <-
   tune_grid(ranger_workflow, resamples = ranger_rsample, 
             grid = 50, control=control_grid(verbose=TRUE))
+```
+
+```
+## i Creating pre-processing data to finalize unknown parameter: mtry
+```
+
+```r
 # stop cluster
 stopCluster(cl)
 # best parameters
 ranger_best<-select_best(ranger_tune,metric="roc_auc")
 ranger_best
+```
 
+```
+## # A tibble: 1 × 4
+##    mtry trees min_n .config              
+##   <int> <int> <int> <chr>                
+## 1     2  1359    34 Preprocessor1_Model02
+```
+
+```r
 # Last Fit
 last_ranger_spec <- 
   rand_forest(mtry=ranger_best$mtry,
@@ -115,7 +187,7 @@ last_fit <- last_ranger_workflow %>%
 
 # variable importance
 train.X.rf<-train[,-which(names(train)=="seriousdlqin2yrs")]
-train.Y.rf<-as.numeric(train$seriousdlqin2yrs)
+train.Y.rf<-as.numeric(train$seriousdlqin2yrs)-1
 library(DALEXtra)
 explainer_rf <- explain_tidymodels(
   model=last_fit,
@@ -124,6 +196,27 @@ explainer_rf <- explain_tidymodels(
   label="rf",
   type = "classification"
 )
+```
+
+```
+## Preparation of a new explainer is initiated
+##   -> model label       :  rf 
+##   -> data              :  149999  rows  15  cols 
+##   -> target variable   :  149999  values 
+##   -> predict function  :  yhat.workflow  will be used (  default  )
+##   -> predicted values  :  No value for predict function target column. (  default  )
+##   -> model_info        :  package tidymodels , ver. 1.1.1 , task classification (  default  ) 
+##   -> model_info        :  type set to  classification 
+##   -> predicted values  :  numerical, min =  0.00499401 , mean =  0.0669339 , max =  0.835619  
+##   -> residual function :  difference between y and yhat (  default  )
+##   -> residuals         :  numerical, min =  -1.699689 , mean =  -1.000093 , max =  -0.01124303  
+##   A new explainer has been created!
+```
+
+```r
 vip_rf_auc <- model_parts(explainer_rf,loss_function = loss_one_minus_auc) #metric is 1-auc
 plot(vip_rf_auc)
+```
+
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
