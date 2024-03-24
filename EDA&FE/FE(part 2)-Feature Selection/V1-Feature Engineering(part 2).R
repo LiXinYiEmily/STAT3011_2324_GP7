@@ -56,10 +56,7 @@ explainer_elnet <- explain_tidymodels(
   type = "classification"
 )
 vip_elnet_auc <- model_parts(explainer_elnet,loss_function = loss_one_minus_auc) #metric is 1-auc
-# ```{r figure1, fig.cap="figure1: Elastic Net Feature Importance"}
 plot(vip_elnet_auc)
-# ```{r, echo=FALSE}
-ggsave("figure-Feature Engineering(part 2)/figure1.png", plot = last_plot(), width = 10, height = 8, dpi = 300)
 
 
 
@@ -148,8 +145,5 @@ explainer_rf <- explain_tidymodels(
   type = "classification"
 )
 vip_rf_auc <- model_parts(explainer_rf,loss_function = loss_one_minus_auc) #metric is 1-auc
-# ```{r figure2, fig.cap="figure2: Random Forest Feature Importance"}
 plot(vip_rf_auc)
-# ```{r, echo=FALSE}
-ggsave("figure-Feature Engineering(part 2)/figure2.png", plot = last_plot(), width = 10, height = 8, dpi = 300)
 
