@@ -14,45 +14,13 @@ library(readr)
 library(rpart)
 library(rpart.plot)
 library(dlookr)
-```
-
-```
-## 
-## Attaching package: 'dlookr'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     transform
-```
-
-```r
 library(tidyverse)
-```
-
-```
-## ── Attaching core tidyverse packages ──────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.3     ✔ purrr     1.0.2
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-```
-
-```
-## ── Conflicts ────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ tidyr::extract() masks dlookr::extract()
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ dplyr::lag()     masks stats::lag()
-## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-```r
 library(conflicted)
 conflicts_prefer("tidyr"::extract, "tidyr"::extract)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
 ## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
@@ -63,7 +31,9 @@ conflicts_prefer("dplyr"::filter, "dplyr"::lag)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::filter over any other package.
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::lag over any other package.
 ```
 
@@ -371,6 +341,17 @@ print(plot_with_labels)
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
+
+```r
+grid.draw(plot_with_labels)
+```
+
+```
+## Warning: Stacking requires either the ymin and ymin or the y aesthetics
+## ℹ Maybe you want `position = "identity"`?
+```
+
+![plot_with_labels](figure/unnamed-chunk-4-1.png)
 Plot every variables
 
 
@@ -392,7 +373,7 @@ df_numeric %>%
 ## Warning: Removed 33655 rows containing non-finite values (`stat_bin()`).
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ```r
 #Many variables are very unevenly distributed
@@ -427,7 +408,7 @@ plot_with_labels <- plot +
 print(plot_with_labels)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 ```r
 #There are two variables "monthly income" and "number of dependents" with missing values.
@@ -548,7 +529,7 @@ df_numeric %>%
 ## (`stat_boxplot()`).
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
 
 Detect Outlier Methods: 1.Percentile 2.Median Absolute Deviation (MAD) 3.Standard deviation
 
@@ -666,17 +647,6 @@ sum(is.na(df$monthlyincome))
 # Findings: A majority of 'DebtRatio' outliers correspond to rows with missing 'Monthly Income'
 if (!requireNamespace("VennDiagram", quietly = TRUE)) {install.packages("VennDiagram")}
 library(VennDiagram)
-```
-
-```
-## Loading required package: grid
-```
-
-```
-## Loading required package: futile.logger
-```
-
-```r
 monthlyincome_missing <- is.na(df$monthlyincome)
 #Identify how many rows of data contain both debtratio outliers and monthly income missing values
 overlapping <- debtratio_outlier & monthlyincome_missing
@@ -885,21 +855,21 @@ sample_data <- df$debtratio[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 ```r
 sample_data <- df$monthlyincome[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-2.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-2.png)
 
 ```r
 sample_data <- df$revolvingutilizationofunsecuredlines[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-3.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-3.png)
 
 # CORRELATION
 
@@ -913,7 +883,7 @@ p_mat <- ggcorrplot::cor_pmat(cor)
 ggcorrplot::ggcorrplot(cor,p.mat = p_mat,lab = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
 
 # Feature Engineering
 # Process variables
@@ -978,7 +948,7 @@ par(mar = c(1, 1, 1, 1))
 rpart.plot(model)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
 
 ```r
 df$category_pastdue <- apply(df[, c('numberoftime3059dayspastduenotworse', 
@@ -1167,7 +1137,7 @@ df_chr_factor %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
 
 # Process Numeric Variables
 Plot numeric variables
@@ -1186,7 +1156,7 @@ df_numeric %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 
 some of them is right skew. Try to take square root.
 
@@ -1202,7 +1172,7 @@ df_numeric %>% select(
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
 
 ```r
 df$sqrt_debtratio <- sqrt(df$debtratio)
@@ -1223,7 +1193,7 @@ df_numeric %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-2.png)
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-2.png)
 
 # Relation between response and predictors
 Now we start to see the relation between response and predictors.
@@ -1240,7 +1210,7 @@ df %>% select(
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
 
 ```r
 # Being more than 90 days past due appears to be associated with a high debt ratio, low monthly income and a high ratio of total unsecured debt to total unsecured lines of credit (RevolvingUtilizationOfUnsecuredLines)
@@ -1255,13 +1225,6 @@ if (!requireNamespace("devtools", quietly = TRUE)) {install.packages("devtools")
 if (!requireNamespace("ggmosaic", quietly = TRUE)) {install.packages("ggmosaic")}
 if (!requireNamespace("patchwork", quietly = TRUE)) {install.packages("patchwork")}
 library(devtools)
-```
-
-```
-## Loading required package: usethis
-```
-
-```r
 library(ggmosaic)
 library(patchwork)
 df$age_group <- as.character(df$age_group)
@@ -1276,7 +1239,7 @@ graph <- df %>% select(c(age_group, dependents_groups, rsll_groups, ocll_quantil
 wrap_plots(graph$graph,ncol = 2)
 ```
 
-![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
 
 # Convert categorical variables
 
