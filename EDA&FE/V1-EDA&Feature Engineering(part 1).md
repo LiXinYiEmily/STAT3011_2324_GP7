@@ -14,45 +14,13 @@ library(readr)
 library(rpart)
 library(rpart.plot)
 library(dlookr)
-```
-
-```
-## 
-## Attaching package: 'dlookr'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     transform
-```
-
-```r
 library(tidyverse)
-```
-
-```
-## ── Attaching core tidyverse packages ──────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.3     ✔ purrr     1.0.2
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-```
-
-```
-## ── Conflicts ────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ tidyr::extract() masks dlookr::extract()
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ dplyr::lag()     masks stats::lag()
-## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-```r
 library(conflicted)
 conflicts_prefer("tidyr"::extract, "tidyr"::extract)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
 ## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
@@ -63,7 +31,9 @@ conflicts_prefer("dplyr"::filter, "dplyr"::lag)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::filter over any other package.
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::lag over any other package.
 ```
 
@@ -666,17 +636,6 @@ sum(is.na(df$monthlyincome))
 # Findings: A majority of 'DebtRatio' outliers correspond to rows with missing 'Monthly Income'
 if (!requireNamespace("VennDiagram", quietly = TRUE)) {install.packages("VennDiagram")}
 library(VennDiagram)
-```
-
-```
-## Loading required package: grid
-```
-
-```
-## Loading required package: futile.logger
-```
-
-```r
 monthlyincome_missing <- is.na(df$monthlyincome)
 #Identify how many rows of data contain both debtratio outliers and monthly income missing values
 overlapping <- debtratio_outlier & monthlyincome_missing
@@ -1255,13 +1214,6 @@ if (!requireNamespace("devtools", quietly = TRUE)) {install.packages("devtools")
 if (!requireNamespace("ggmosaic", quietly = TRUE)) {install.packages("ggmosaic")}
 if (!requireNamespace("patchwork", quietly = TRUE)) {install.packages("patchwork")}
 library(devtools)
-```
-
-```
-## Loading required package: usethis
-```
-
-```r
 library(ggmosaic)
 library(patchwork)
 df$age_group <- as.character(df$age_group)
