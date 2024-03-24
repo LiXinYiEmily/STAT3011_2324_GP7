@@ -1,13 +1,11 @@
 #' # Feature Engineering (part 2)
 #' # Feature importance 
 #' # Elastic Net 
-# variable category_pastdue to dummy variable
 library(caret)
 library(doParallel)
 library(foreach)
 library(pROC)
 library(coefplot)
-library(dplyr)
 library(tidyverse)
 setwd("/Users/cailiying/Desktop/cuhk bsc/23:24/23:24 T2/STAT3011/Project2")
 train <- read.csv("cs-training-processed-v1.csv")
@@ -19,7 +17,7 @@ train.X<-as.matrix(train[,2:ncol(train)])
 train.Y<-train$seriousdlqin2yrs
 
 # Create a cluster object and then register: 
-cl <- makePSOCKcluster(6)
+cl <- makePSOCKcluster(5)
 registerDoParallel(cl)
 
 # Find the best parameters
@@ -68,9 +66,9 @@ library(dplyr)
 library(doMC)
 
 # train dataset
-train <- read_csv("cs-training-processed-v1.csv")
+train <- read.csv("cs-training-processed-v1.csv")
 train <- train %>% 
-  mutate(across(c(seriousdlqin2yrs, age_group, category_pastdue, dependents_groups, rsll_groups, ocll_quantile_groups),~as.factor(.x)))
+  mutate(across(c(seriousdlqin2yrs, age_group, category_pastdue, dependents_groups, rsll_groups, ocll_quantile_groups),~as.character(.x)))
 
 # Specify the formula and data for modeling
 ranger_recipe <- 
@@ -89,7 +87,7 @@ ranger_workflow <-
 ranger_rsample <- vfold_cv(train,v=5)
 
 # Create a cluster object and then register: 
-cl <- makePSOCKcluster(6)
+cl <- makePSOCKcluster(5)
 registerDoParallel(cl)
 
 # Perform tuning to find the best parameters
