@@ -341,17 +341,6 @@ print(plot_with_labels)
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
-
-```r
-grid.draw(plot_with_labels)
-```
-
-```
-## Warning: Stacking requires either the ymin and ymin or the y aesthetics
-## ℹ Maybe you want `position = "identity"`?
-```
-
-![plot_with_labels](figure/unnamed-chunk-4-1.png)
 Plot every variables
 
 
@@ -373,7 +362,7 @@ df_numeric %>%
 ## Warning: Removed 33655 rows containing non-finite values (`stat_bin()`).
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 ```r
 #Many variables are very unevenly distributed
@@ -408,7 +397,7 @@ plot_with_labels <- plot +
 print(plot_with_labels)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ```r
 #There are two variables "monthly income" and "number of dependents" with missing values.
@@ -529,7 +518,7 @@ df_numeric %>%
 ## (`stat_boxplot()`).
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 Detect Outlier Methods: 1.Percentile 2.Median Absolute Deviation (MAD) 3.Standard deviation
 
@@ -855,21 +844,21 @@ sample_data <- df$debtratio[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 ```r
 sample_data <- df$monthlyincome[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-2.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-2.png)
 
 ```r
 sample_data <- df$revolvingutilizationofunsecuredlines[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-3.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-3.png)
 
 # CORRELATION
 
@@ -883,7 +872,7 @@ p_mat <- ggcorrplot::cor_pmat(cor)
 ggcorrplot::ggcorrplot(cor,p.mat = p_mat,lab = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 # Feature Engineering
 # Process variables
@@ -948,7 +937,7 @@ par(mar = c(1, 1, 1, 1))
 rpart.plot(model)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
 
 ```r
 df$category_pastdue <- apply(df[, c('numberoftime3059dayspastduenotworse', 
@@ -1137,7 +1126,7 @@ df_chr_factor %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
 
 # Process Numeric Variables
 Plot numeric variables
@@ -1156,7 +1145,7 @@ df_numeric %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
 
 some of them is right skew. Try to take square root.
 
@@ -1172,7 +1161,7 @@ df_numeric %>% select(
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 
 ```r
 df$sqrt_debtratio <- sqrt(df$debtratio)
@@ -1193,7 +1182,7 @@ df_numeric %>%
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-2.png)
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-2.png)
 
 # Relation between response and predictors
 Now we start to see the relation between response and predictors.
@@ -1210,7 +1199,7 @@ df %>% select(
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
 
 ```r
 # Being more than 90 days past due appears to be associated with a high debt ratio, low monthly income and a high ratio of total unsecured debt to total unsecured lines of credit (RevolvingUtilizationOfUnsecuredLines)
@@ -1239,7 +1228,7 @@ graph <- df %>% select(c(age_group, dependents_groups, rsll_groups, ocll_quantil
 wrap_plots(graph$graph,ncol = 2)
 ```
 
-![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
 
 # Convert categorical variables
 
