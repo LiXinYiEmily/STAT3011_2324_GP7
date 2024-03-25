@@ -1,3 +1,7 @@
+Project Name:
+Chapter 1. Credit Risk Modeling
+
+_______________________________________________________________________________
 Problem Statement
 
 It is crucial for banks and money lenders to understand the customers’ risk and financial behaviours. A high prediction accuracy of loan default, that is, borrowers fail to make payments, helps businesses to make more responsible lending and pricing strategies and improve revenue by keeping losses low. 
@@ -11,6 +15,9 @@ In particular, the following questions will be addressed:
 2.	Which features are the most important in assessing the customer’s risk of defaulting? How can we effectively incorporate these features into the models?
 
 3.	What kind of techniques can be used to optimize the model performance?
+
+Variables:
+SeriousDlqin2yrs, RevolvingUtilizationOfUnsecuredLines, Age, NumberOfTime30-59DaysPastDueNotWorse, DebtRatio, MonthlyIncome, NumberOfOpenCreditLinesAndLoans, NumberOfTimes90DaysLate, NumberRealEstateLoansOrLines, NumberOfTime60-89DaysPastDueNotWorse, NumberOfDependents
 
 
 ____________________________________________________________________________
@@ -56,7 +63,9 @@ Ada Boosting & XGBoosting
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 History Version: See in History Version
-Data
+Data Source: See in data file 
+Replication: See in replication file, replicated from the book Thanaki, J. (2018). Machine Learning Solutions (1st edition). Packt Publishing.
+
 
 
 
