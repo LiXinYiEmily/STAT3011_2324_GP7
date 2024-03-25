@@ -37,6 +37,7 @@ How much each feature contributes to the model prediction
 Part 3 Feature Importance:
 Feature Importance: which features are the most important in assessing the customer’s risk of defaulting;
       Elastic Net + Random Forest
+      EDA&FE/FE(part 2)-Feature Selection/figure/unnamed-chunk-1-1.png
 
 Part 4 Models:
 Ada Boosting & XGBoosting
