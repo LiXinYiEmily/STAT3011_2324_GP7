@@ -13,24 +13,27 @@ In particular, the following questions will be addressed:
 3.	What kind of techniques can be used to optimize the model performance?
 
 Part 1 EDA:
-Data Distribution: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-3-1.png
-Variable Sudoku: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-4-1.png
-Missing Data: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-5-1.png
-OUTLIER DETECTION: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-6-1.png
-Plot Outlier: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-1.png
-              EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-2.png
-              EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-3.png
+    Data Distribution: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-3-1.png
+    Variable Sudoku: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-4-1.png
+    Missing Data: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-5-1.png
+    OUTLIER DETECTION: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-6-1.png
+    Plot Outlier: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-1.png
+                  EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-2.png
+                  EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-3.png
 
 Part 2 Feature Engineering:
-Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
-Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
-variable Sudoku(after feature engineering): EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-16-1.png
-Process Numeric Variables: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-17-1.png
-                          EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-1.png
-Boxplot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-2.png
-Relation between response and predictors: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-19-1.png
-Plot mosaic plot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-20-1.png
+      Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
+      Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
+      variable Sudoku(after feature engineering): EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-16-1.png
+      Process Numeric Variables: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-17-1.png
+                                EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-1.png
+      Boxplot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-2.png
+      Relation between response and predictors: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-19-1.png
+      Plot mosaic plot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-20-1.png
 
+Part 3 Models:
+      Ada Bossting & Grandiant Boosting: models/STAT3011_project2_model_Ada+Gb.ipynb
+      XGBOosting Boosting: models/xgboost.ipynb
 
 
 
