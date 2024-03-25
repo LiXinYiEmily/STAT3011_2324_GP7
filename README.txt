@@ -24,6 +24,11 @@ Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
 Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
 variable Sudoku(after feature engineering): EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-16-1.png
 Process Numeric Variables: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-17-1.png
+                          EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-1.png
+Boxplot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-2.png
+Relation between response and predictors: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-19-1.png
+
+
 
 
 
