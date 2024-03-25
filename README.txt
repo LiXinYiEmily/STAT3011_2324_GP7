@@ -27,7 +27,7 @@ Process Numeric Variables: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-17-1.png
                           EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-1.png
 Boxplot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-18-2.png
 Relation between response and predictors: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-19-1.png
-
+Plot mosaic plot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-20-1.png
 
 
 
