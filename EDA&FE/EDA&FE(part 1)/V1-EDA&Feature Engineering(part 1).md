@@ -14,45 +14,13 @@ library(readr)
 library(rpart)
 library(rpart.plot)
 library(dlookr)
-```
-
-```
-## 
-## Attaching package: 'dlookr'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     transform
-```
-
-```r
 library(tidyverse)
-```
-
-```
-## ── Attaching core tidyverse packages ───────────────────────────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.3     ✔ purrr     1.0.2
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-```
-
-```
-## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ tidyr::extract() masks dlookr::extract()
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ dplyr::lag()     masks stats::lag()
-## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-```r
 library(conflicted)
 conflicts_prefer("tidyr"::extract, "tidyr"::extract)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
 ## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer tidyr::extract over any other package.
@@ -63,7 +31,9 @@ conflicts_prefer("dplyr"::filter, "dplyr"::lag)
 ```
 
 ```
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::filter over any other package.
+## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer dplyr::lag over any other package.
 ```
 
@@ -531,7 +501,7 @@ mad_based_outlier <- function(data, thresh = 3.5){
   return(modified_z_scores>thresh)
 }
 
-z_score<- function(data, threshold=1.96){
+z_score_outlier<- function(data, threshold=1.96){
   std=sd(data)
   mean=mean(data)
   z <- abs(data - mean)/std
@@ -541,7 +511,7 @@ z_score<- function(data, threshold=1.96){
 outlierVote <- function(data, mad_thresh = 3.5, z_score_thresh=1.96) {
   ibo <- IQR_based_outlier(data)
   mbo <- mad_based_outlier(data, mad_thresh)
-  zso <- z_score(data, z_score_thresh)
+  zso <- z_score_outlier(data, z_score_thresh)
   combined <- (ibo & mbo) | (ibo & zso) | (mbo & zso)
   return(combined)
 }
@@ -549,7 +519,7 @@ outlierVote <- function(data, mad_thresh = 3.5, z_score_thresh=1.96) {
 
 plotOutlier <- function(x) {
   par(mfrow = c(4, 1))  # Set up 4 subplots in a vertical layout
-  funcs <- list(IQR_based_outlier, mad_based_outlier, z_score, outlierVote)
+  funcs <- list(IQR_based_outlier, mad_based_outlier, z_score_outlier, outlierVote)
   titles <- c('IQR-based Outliers', 'MAD-based Outliers', 'z-score-based Outliers', 'Majority vote based Outliers')
   for (i in 1:length(funcs)) {
     outliers <- x[funcs[[i]](x)]
@@ -629,17 +599,6 @@ sum(is.na(df$monthlyincome))
 # Findings: A majority of 'DebtRatio' outliers correspond to rows with missing 'Monthly Income'
 if (!requireNamespace("VennDiagram", quietly = TRUE)) {install.packages("VennDiagram")}
 library(VennDiagram)
-```
-
-```
-## Loading required package: grid
-```
-
-```
-## Loading required package: futile.logger
-```
-
-```r
 monthlyincome_missing <- is.na(df$monthlyincome)
 #Identify how many rows of data contain both debtratio outliers and monthly income missing values
 overlapping <- debtratio_outlier & monthlyincome_missing
@@ -844,6 +803,7 @@ summary(df$revolvingutilizationofunsecuredlines)
 
 ```r
 # Plot outliers
+set.seed(3011)
 sample_data <- df$debtratio[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 ```
@@ -1212,13 +1172,6 @@ if (!requireNamespace("devtools", quietly = TRUE)) {install.packages("devtools")
 if (!requireNamespace("ggmosaic", quietly = TRUE)) {install.packages("ggmosaic")}
 if (!requireNamespace("patchwork", quietly = TRUE)) {install.packages("patchwork")}
 library(devtools)
-```
-
-```
-## Loading required package: usethis
-```
-
-```r
 library(ggmosaic)
 library(patchwork)
 df$age_group <- as.character(df$age_group)

@@ -278,7 +278,7 @@ mad_based_outlier <- function(data, thresh = 3.5){
   return(modified_z_scores>thresh)
 }
 
-z_score<- function(data, threshold=1.96){
+z_score_outlier<- function(data, threshold=1.96){
   std=sd(data)
   mean=mean(data)
   z <- abs(data - mean)/std
@@ -288,7 +288,7 @@ z_score<- function(data, threshold=1.96){
 outlierVote <- function(data, mad_thresh = 3.5, z_score_thresh=1.96) {
   ibo <- IQR_based_outlier(data)
   mbo <- mad_based_outlier(data, mad_thresh)
-  zso <- z_score(data, z_score_thresh)
+  zso <- z_score_outlier(data, z_score_thresh)
   combined <- (ibo & mbo) | (ibo & zso) | (mbo & zso)
   return(combined)
 }
@@ -296,7 +296,7 @@ outlierVote <- function(data, mad_thresh = 3.5, z_score_thresh=1.96) {
 
 plotOutlier <- function(x) {
   par(mfrow = c(4, 1))  # Set up 4 subplots in a vertical layout
-  funcs <- list(IQR_based_outlier, mad_based_outlier, z_score, outlierVote)
+  funcs <- list(IQR_based_outlier, mad_based_outlier, z_score_outlier, outlierVote)
   titles <- c('IQR-based Outliers', 'MAD-based Outliers', 'z-score-based Outliers', 'Majority vote based Outliers')
   for (i in 1:length(funcs)) {
     outliers <- x[funcs[[i]](x)]
@@ -410,6 +410,7 @@ df[revolvingutilizationofunsecuredlines_outlier==TRUE, "revolvingutilizationofun
 summary(df$revolvingutilizationofunsecuredlines)
 
 # Plot outliers
+set.seed(3011)
 sample_data <- df$debtratio[sample(nrow(df), 5000)]
 plotOutlier(sample_data)
 sample_data <- df$monthlyincome[sample(nrow(df), 5000)]
