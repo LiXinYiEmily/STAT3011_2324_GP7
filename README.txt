@@ -13,7 +13,9 @@ In particular, the following questions will be addressed:
 3.	What kind of techniques can be used to optimize the model performance?
 
 
-Part 1 EDA:
+____________________________________________________________________________
+Part 1 EDA: [save in EDA&FE]
+
 Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
     Data Distribution: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-3-1.png
     Variable Sudoku: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-4-1.png
@@ -23,7 +25,8 @@ Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
                   EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-2.png
                   EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-3.png
 
-Part 2 Feature Engineering:
+___________________________________________________________________________
+Part 2 Feature Engineering: [Save in EDA&FE]
 How much each feature contributes to the model prediction
       Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
       Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
@@ -34,19 +37,26 @@ How much each feature contributes to the model prediction
       Relation between response and predictors: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-19-1.png
       Plot mosaic plot: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-20-1.png
 
-Part 3 Feature Importance:
+
+___________________________________________________________________________
+Part 3 Feature Importance: [Save in EDA&FE]
+
 Feature Importance: which features are the most important in assessing the customer’s risk of defaulting;
       Elastic Net + Random Forest
       EDA&FE/FE(part 2)-Feature Selection/figure/unnamed-chunk-1-1.png
 
-Part 4 Models:
+
+___________________________________________________________________________
+Part 4 Models: [Save in models]
+
 Ada Boosting & XGBoosting
       Ada Boosting & Grandiant Boosting: models/STAT3011_project2_model_Ada+Gb.ipynb
       XGBOosting Boosting: models/xgboost.ipynb
 
 
-
-
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+History Version: See in History Version
+Data
 
 
 
