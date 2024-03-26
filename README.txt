@@ -34,6 +34,7 @@ Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
 
 ___________________________________________________________________________
 Part 2 Feature Engineering: [Save in EDA&FE]
+
 How much each feature contributes to the model prediction
       Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
       Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
