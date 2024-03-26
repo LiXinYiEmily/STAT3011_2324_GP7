@@ -60,8 +60,8 @@ Feature Importance: which features are the most important in assessing the custo
 ___________________________________________________________________________
 Part 4 Models: [Save in models]
 
-Ada Boosting & XGBoosting
-      Ada Boosting can be found in models/STAT3011_project2_model_Ada+Gb.ipynb
+Ada Boosting & Gradient Boosting & XGBoosting
+      Ada Boosting and Gradient Boosting can be found in models/STAT3011_project2_model_Ada+Gb.ipynb
       XGBBoosting can be found in models/xgboost.ipynb
 
 
