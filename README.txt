@@ -22,6 +22,7 @@ SeriousDlqin2yrs, RevolvingUtilizationOfUnsecuredLines, Age, NumberOfTime30-59Da
 
 ____________________________________________________________________________
 Part 1 EDA: [save in EDA&FE]
+Find code in EDA&FE/EDA&FE(part 1)/Markdown-EDA&Feature Engineering(part 1).md
 
 Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
     Data Distribution: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-3-1.png
@@ -34,6 +35,7 @@ Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
 
 ___________________________________________________________________________
 Part 2 Feature Engineering: [Save in EDA&FE]
+Find code in EDA&FE/EDA&FE(part 1)/Markdown-EDA&Feature Engineering(part 1).md
 
 How much each feature contributes to the model prediction
       Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
@@ -48,6 +50,7 @@ How much each feature contributes to the model prediction
 
 ___________________________________________________________________________
 Part 3 Feature Importance: [Save in EDA&FE]
+Find Code in EDA&FE/FE(part 2)-Feature Selection/Markdown-Feature Engineering(part 2).md
 
 Feature Importance: which features are the most important in assessing the customer’s risk of defaulting;
       Elastic Net + Random Forest
@@ -58,8 +61,8 @@ ___________________________________________________________________________
 Part 4 Models: [Save in models]
 
 Ada Boosting & XGBoosting
-      Ada Boosting & Grandiant Boosting: models/STAT3011_project2_model_Ada+Gb.ipynb
-      XGBOosting Boosting: models/xgboost.ipynb
+      Ada Boosting can be found find in models/STAT3011_project2_model_Ada+Gb.ipynb
+      XGBBoosting can be found in models/xgboost.ipynb
 
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
