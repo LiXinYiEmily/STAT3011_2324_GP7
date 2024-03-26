@@ -32,13 +32,13 @@ Understanding attributes of the dataset (Dataset：150,000 rows, 11 columns)
     Plot Outlier: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-1.png
                   EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-2.png
                   EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-10-3.png
+    Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
 
 ___________________________________________________________________________
 Part 2 Feature Engineering: [Save in EDA&FE]
 Find code in EDA&FE/EDA&FE(part 1)/Markdown-EDA&Feature Engineering(part 1).md
 
 How much each feature contributes to the model prediction
-      Correlation: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-11-1.png
       Decision Tree: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-12-1.png
       variable Sudoku(after feature engineering): EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-16-1.png
       Process Numeric Variables: EDA&FE/EDA&FE(part 1)/figure/unnamed-chunk-17-1.png
@@ -55,13 +55,13 @@ Find Code in EDA&FE/FE(part 2)-Feature Selection/Markdown-Feature Engineering(pa
 Feature Importance: which features are the most important in assessing the customer’s risk of defaulting;
       Elastic Net + Random Forest
       EDA&FE/FE(part 2)-Feature Selection/figure/unnamed-chunk-1-1.png
-
+      EDA&FE/FE(part 2)-Feature Selection/figure/unnamed-chunk-2-1.png
 
 ___________________________________________________________________________
 Part 4 Models: [Save in models]
 
 Ada Boosting & XGBoosting
-      Ada Boosting can be found find in models/STAT3011_project2_model_Ada+Gb.ipynb
+      Ada Boosting can be found in models/STAT3011_project2_model_Ada+Gb.ipynb
       XGBBoosting can be found in models/xgboost.ipynb
 
 
